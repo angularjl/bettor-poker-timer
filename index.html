@@ -23,19 +23,47 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
-        <h1 style="font-size: 144px" class="text-center">
-            18:00
-        </h1>
+    <body ng-app="MyApp">
+        <div ng-controller="MyAppController">
+            <h1 class="text-center" style="font-size: 144px;">
+                <timer
+                    autostart="false"
+                    interval="1000"
+                    countdown="1080"
+                    max-time-unit="'minute'"
+                >
+                    {{minutes}}:{{sseconds}}
+                </timer>
+            </h1>
 
+            <h1 style="font-size: 72px;" class="text-center">
+                $0.10 / $0.20
+            </h1>
 
-
-
+            <button
+                ng-click="startTimer()"
+                style="h1"
+            >
+                Start Timer
+            </button>
+            <button
+                ng-click="stopTimer()"
+                ng-disabled="!timerRunning"
+                style="h1"
+            >
+                Stop Timer
+            </button>
+        </div>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/moment/min/moment.min.js"></script>
+        <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+        <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+        <script src="index.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </body>
