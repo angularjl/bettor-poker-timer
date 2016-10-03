@@ -25,35 +25,57 @@
         <![endif]-->
     </head>
     <body ng-app="MyApp">
-        <div ng-controller="MyAppController">
-            <h1 class="text-center" style="font-size: 144px;">
-                <timer
-                    autostart="false"
-                    interval="1000"
-                    countdown="1080"
-                    max-time-unit="'minute'"
-                >
-                    {{minutes}}:{{sseconds}}
-                </timer>
-            </h1>
+        <div ng-controller="MyAppController" class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h1 style="font-size: 144px;">
+                            <timer autostart="false"
+                                   interval="1000"
+                                   countdown="1080"
+                                   max-time-unit="'minute'"
+                                   >
+                                {{minutes}}:{{sseconds}}
+                            </timer>
+                        </h1>
+                    </div>
+                </div>
+            </div>
 
-            <h1 style="font-size: 72px;" class="text-center">
-                $0.10 / $0.20
-            </h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h1 style="font-size: 72px;">
+                            $0.10 / $0.20
+                        </h1>
+                    </div>
+                </div>
+            </div>
 
-            <button
-                ng-click="startTimer()"
-                style="h1"
-            >
-                Start Timer
-            </button>
-            <button
-                ng-click="stopTimer()"
-                ng-disabled="!timerRunning"
-                style="h1"
-            >
-                Stop Timer
-            </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="btn-group">
+                            <button ng-click="startTimer()"
+                                    ng-disabled="timerRunning"
+                                    class="btn btn-success btn-lg"
+                                    >
+                                Start Timer
+                            </button>
+                            <button ng-click="stopTimer()"
+                                    ng-disabled="!timerRunning"
+                                    class="btn btn-default btn-lg"
+                                    >
+                                Stop Timer
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
 

@@ -4,7 +4,7 @@
     angular.module('MyApp', ['timer']).controller('MyAppController', [
         '$scope',
         function ($scope) {
-            $scope.timerRunning = true;
+            $scope.timerRunning = false;
 
             $scope.startTimer = function () {
                 $scope.$broadcast('timer-start');
