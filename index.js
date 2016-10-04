@@ -26,10 +26,19 @@
             '$scope',
             'ngAudio',
             function ($scope, ngAudio) {
+                $scope.blinds = [0.1, 0.2, 0.3, 0.4, 0.6, 0.9, 1.3, 2, 4, 7, 10];
                 $scope.voice = ngAudio.load('sounds/one_minute_remaining.mp3');
                 $scope.alarm = ngAudio.load('sounds/alarm.mp3');
+                $scope.beep = ngAudio.load('sounds/beep.mp3');
+                $scope.reset = ngAudio.load('sounds/reset.mp3');
+                $scope.level = 0;
+                $scope.duration = 17 * 60;
 
+                $scope.countdown = $scope.duration;
                 $scope.timerRunning = false;
+                $scope.smallBlind = $scope.blinds[$scope.level];
+                $scope.bigBlind = $scope.smallBlind * 2;
+
 
                 $scope.startTimer = function () {
                     $scope.$broadcast('timer-start');
@@ -37,21 +46,33 @@
                 };
 
                 $scope.stopTimer = function () {
-                    $scope.$broadcast('timer-stop');
+                    $scope.$broadcast('timer-clear');
                     $scope.timerRunning = false;
                 };
 
+                $scope.finished = function () {
+                    $scope.countdown = $scope.duration;
+                    $scope.$broadcast('timer-add-cd-seconds', $scope.duration);
+                    //$scope.startTimer();
+                    console.log($scope);
+                };
+
                 $scope.$on('timer-stopped', function (event, data) {
-                    console.log('Timer Stopped - data = ', data);
+                    $scope.reset.play();
+                    $scope.level++;
+
+
                 });
 
                 $scope.$on('timer-tick', function (event, data) {
                     var secs = data.millis / 1000;
 
-                    if (secs === 60) {
+                    if (secs === 0) {
+                        $scope.alarm.play();
+                    } else if (secs === 60) {
                         $scope.voice.play();
                     } else if (secs <= 10) {
-                        $scope.alarm.play();
+                        $scope.beep.play();
                     }
                 });
             }

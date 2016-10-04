@@ -32,8 +32,9 @@
                         <h1 style="font-size: 144px;">
                             <timer autostart="false"
                                    interval="1000"
-                                   countdown="15"
+                                   countdown="countdown"
                                    max-time-unit="'minute'"
+                                   finish-callback="finished()"
                                    >
                                 {{minutes}}:{{sseconds}}
                             </timer>
@@ -46,7 +47,7 @@
                 <div class="col-md-12">
                     <div class="text-center">
                         <h1 style="font-size: 72px;">
-                            $0.10 / $0.20
+                            {{smallBlind | currency}} / {{bigBlind | currency}}
                         </h1>
                     </div>
                 </div>
@@ -69,15 +70,34 @@
                                 Stop Timer
                             </button>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
-        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Small Blind</th>
+                                    <th>Big Blind</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="blind in blinds">
+                                    <td>{{blind | currency}}</td>
+                                    <td>{{blind * 2 | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
+
+
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
