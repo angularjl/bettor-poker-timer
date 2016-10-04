@@ -26,7 +26,13 @@
             '$scope',
             'ngAudio',
             function ($scope, ngAudio) {
+                var updateView = function () {
+                    $scope.smallBlind = $scope.blinds[$scope.level];
+                    $scope.bigBlind = $scope.smallBlind * 2;
+                };
+
                 $scope.blinds = [0.1, 0.2, 0.3, 0.4, 0.6, 0.9, 1.3, 2, 4, 7, 10];
+
                 $scope.voice = ngAudio.load('sounds/one_minute_remaining.mp3');
                 $scope.alarm = ngAudio.load('sounds/alarm.mp3');
                 $scope.beep = ngAudio.load('sounds/beep.mp3');
@@ -36,9 +42,8 @@
 
                 $scope.countdown = $scope.duration;
                 $scope.timerRunning = false;
-                $scope.smallBlind = $scope.blinds[$scope.level];
-                $scope.bigBlind = $scope.smallBlind * 2;
 
+                updateView();
 
                 $scope.startTimer = function () {
                     $scope.$broadcast('timer-start');
@@ -51,17 +56,13 @@
                 };
 
                 $scope.finished = function () {
-                    $scope.countdown = $scope.duration;
                     $scope.$broadcast('timer-add-cd-seconds', $scope.duration);
-                    //$scope.startTimer();
-                    console.log($scope);
+                    $scope.level++;
+                    updateView();
                 };
 
-                $scope.$on('timer-stopped', function (event, data) {
+                $scope.$on('timer-stopped', function () {
                     $scope.reset.play();
-                    $scope.level++;
-
-
                 });
 
                 $scope.$on('timer-tick', function (event, data) {
