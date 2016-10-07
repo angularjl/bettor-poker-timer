@@ -31,21 +31,27 @@
                     $scope.bigBlind = $scope.smallBlind * 2;
                 };
 
-                $scope.blinds = [0.1, 0.2, 0.3, 0.4, 0.6, 0.9, 1.3, 2, 4, 7, 10];
+                $scope.blinds = [0.1, 0.2, 0.3, 0.4, 0.6, 0.9, 1.3, 2, 3, 5, 7, 10];
 
                 $scope.voice = ngAudio.load('sounds/one_minute_remaining.mp3');
                 $scope.alarm = ngAudio.load('sounds/alarm.mp3');
                 $scope.beep = ngAudio.load('sounds/beep.mp3');
                 $scope.reset = ngAudio.load('sounds/reset.mp3');
                 $scope.level = 0;
-                $scope.duration = 17 * 60;
+                $scope.duration = 17;
+                $scope.first = true;
+                $scope.countdown = 1;
 
-                $scope.countdown = $scope.duration;
                 $scope.timerRunning = false;
 
                 updateView();
 
                 $scope.startTimer = function () {
+                    if ($scope.first) {
+                        $scope.first = false;
+                        $scope.$broadcast('timer-add-cd-seconds', $scope.duration * 60);
+                    }
+
                     $scope.$broadcast('timer-start');
                     $scope.timerRunning = true;
                 };
@@ -56,7 +62,7 @@
                 };
 
                 $scope.finished = function () {
-                    $scope.$broadcast('timer-add-cd-seconds', $scope.duration);
+                    $scope.$broadcast('timer-add-cd-seconds', $scope.duration * 60);
                     $scope.level++;
                     updateView();
                 };

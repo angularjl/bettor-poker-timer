@@ -76,6 +76,15 @@
 
             <div class="row">
                 <div class="col-md-12">
+                    <div class="text-center form-group form-group-sm">
+                        <input type="number"
+                               ng-model="duration">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
                     <div class="text-center">
                         <table class="table table-striped">
                             <thead>
@@ -85,8 +94,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="blind in blinds">
-                                    <td>{{blind | currency}}</td>
+                                <tr class="form-group form-group-sm" ng-repeat="blind in blinds">
+                                    <td>
+                                        <input type="number"
+                                               ng-model="blind"
+                                               class="form-control"
+                                               >
+                                    </td>
                                     <td>{{blind * 2 | currency}}</td>
                                 </tr>
                             </tbody>
